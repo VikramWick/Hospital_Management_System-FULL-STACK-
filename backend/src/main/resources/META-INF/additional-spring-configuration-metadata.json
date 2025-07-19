@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "pharmacy.api.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'pharmacy.api.base-url'"
+  },
+  {
+    "name": "insurance.api.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'insurance.api.base-url'"
+  }
+]}

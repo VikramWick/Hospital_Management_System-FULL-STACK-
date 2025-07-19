@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "hms",
+			"path": "../../../../../../.."
+		},
+		{
+			"name": "pharmacy",
+			"path": "../../../../../../../../pharmacy"
+		},
+		{
+			"name": "insurance",
+			"path": "../../../../../../../../insurance"
+		}
+	],
+	"settings": {}
+}
