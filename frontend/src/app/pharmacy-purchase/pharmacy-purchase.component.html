@@ -1,0 +1,126 @@
+<div class="pharmacy-purchase">
+    <header class="purchase-header">
+      <button class="back-btn" (click)="goBack()">← Back to Dashboard</button>
+      <h1>Purchase Medicines</h1>
+      <div class="cart-summary" *ngIf="cart.length > 0">
+        <span>Cart Items: {{cart.length}}</span>
+        <button class="checkout-btn" (click)="showPaymentModal = true">
+          Proceed to Checkout (₹{{totalAmount}})
+        </button>
+      </div>
+    </header>
+  
+    <div class="medicines-grid">
+      <div class="medicine-card" *ngFor="let medicine of medicines">
+        <h3>{{medicine.name}}</h3>
+        <p class="price">₹{{medicine.price}}</p>
+        <div class="quantity-controls">
+          <input 
+            type="number" 
+            [(ngModel)]="medicine.selectedQuantity" 
+            min="1" 
+            placeholder="Qty"
+          >
+          <button (click)="addToCart(medicine)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Payment Modal -->
+    <div class="modal" *ngIf="showPaymentModal">
+      <div class="modal-content">
+        <h2>Checkout</h2>
+        
+        <!-- Cart Summary -->
+        <div class="cart-items">
+          <h3>Your Cart</h3>
+          <div *ngFor="let item of cart; let i = index" class="cart-item">
+            <span>{{item.medicine.name}} x {{item.quantity}}</span>
+            <span>₹{{item.medicine.price * item.quantity}}</span>
+            <button class="remove-btn" (click)="removeFromCart(i)">×</button>
+          </div>
+          <div class="total">
+            <strong>Total: ₹{{totalAmount}}</strong>
+          </div>
+        </div>
+  
+        <!-- Payment Method Selection -->
+        <div class="payment-methods">
+          <h3>Select Payment Method</h3>
+          <div class="method-buttons">
+            <button 
+              [class.selected]="paymentMethod === 'upi'"
+              (click)="paymentMethod = 'upi'"
+            >UPI</button>
+            <button 
+              [class.selected]="paymentMethod === 'card'"
+              (click)="paymentMethod = 'card'"
+            >Card</button>
+          </div>
+        </div>
+  
+        <!-- UPI Payment Form -->
+        <form *ngIf="paymentMethod === 'upi'" (ngSubmit)="processPayment()">
+          <div class="form-group">
+            <label>UPI ID</label>
+            <input 
+              type="text" 
+              [(ngModel)]="paymentDetails.upiId" 
+              name="upiId" 
+              placeholder="Enter UPI ID"
+              required
+            >
+          </div>
+          <button type="submit" class="pay-btn">Pay Now</button>
+        </form>
+  
+        <!-- Card Payment Form -->
+        <form *ngIf="paymentMethod === 'card'" (ngSubmit)="processPayment()">
+          <div class="form-group">
+            <label>Card Number</label>
+            <input 
+              type="text" 
+              [(ngModel)]="paymentDetails.cardNumber" 
+              name="cardNumber" 
+              placeholder="1234 5678 9012 3456"
+              required
+            >
+          </div>
+          <div class="form-group">
+            <label>Name on Card</label>
+            <input 
+              type="text" 
+              [(ngModel)]="paymentDetails.cardName" 
+              name="cardName"
+              required
+            >
+          </div>
+          <div class="card-info">
+            <div class="form-group">
+              <label>Expiry Date</label>
+              <input 
+                type="text" 
+                [(ngModel)]="paymentDetails.expiryDate" 
+                name="expiryDate" 
+                placeholder="MM/YY"
+                required
+              >
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input 
+                type="password" 
+                [(ngModel)]="paymentDetails.cvv" 
+                name="cvv" 
+                maxlength="3"
+                required
+              >
+            </div>
+          </div>
+          <button type="submit" class="pay-btn">Pay Now</button>
+        </form>
+  
+        <button class="close-btn" (click)="showPaymentModal = false">Cancel</button>
+      </div>
+    </div>
+  </div>

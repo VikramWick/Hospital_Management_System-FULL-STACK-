@@ -1,0 +1,132 @@
+<div class="insurance-purchase">
+  <header class="purchase-header">
+    <button class="back-btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </button>
+    <h1>Insurance Plans</h1>
+  </header>
+
+  <div class="plans-grid">
+  <div class="plan-card" *ngFor="let plan of insurancePlans" 
+       [class.selected]="plan.selected"
+       (click)="selectPlan(plan)">
+    <div class="plan-header">
+      <h3>{{plan.name}}</h3>
+      <span class="badge" *ngIf="plan.selected">
+        <i class="fas fa-check"></i> Selected
+      </span>
+    </div>
+    <p class="premium">₹{{plan.premium}}/month</p>
+    <div class="coverage">
+      <h4>Coverage Includes:</h4>
+      <ul>
+        <li *ngFor="let item of plan.coverage">
+          <i class="fas fa-check"></i> {{item}}
+        </li>
+      </ul>
+    </div>
+    <p class="duration">Duration: {{plan.duration}}</p>
+  </div>
+</div>
+
+<!-- Update the action bar to show when any plans are selected -->
+<div class="action-bar" *ngIf="selectedPlans.length > 0">
+  <div class="selected-info">
+    <p>Selected Plans: <strong>{{selectedPlans.length}}</strong></p>
+    <p class="amount">Total Amount: ₹{{totalAmount}}</p>
+  </div>
+  <button class="purchase-btn" (click)="showPaymentModal = true">
+    <i class="fas fa-shopping-cart"></i> Proceed to Payment
+  </button>
+</div>
+
+  <!-- Payment Modal -->
+  <div class="modal" *ngIf="showPaymentModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Payment Details</h2>
+        <button class="close-modal" (click)="showPaymentModal = false">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="payment-summary">
+        <h3>{{selectedPlan?.name}}</h3>
+        <p class="amount">Total Amount: ₹{{totalAmount}}</p>
+      </div>
+
+      <div class="payment-methods">
+        <h3>Select Payment Method</h3>
+        <div class="method-buttons">
+          <button [class.selected]="paymentMethod === 'upi'"
+                  (click)="paymentMethod = 'upi'">
+            <i class="fas fa-mobile-alt"></i>
+            <span>UPI</span>
+          </button>
+          <button [class.selected]="paymentMethod === 'card'"
+                  (click)="paymentMethod = 'card'">
+            <i class="fas fa-credit-card"></i>
+            <span>Card</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="payment-form">
+        <!-- UPI Form -->
+        <form *ngIf="paymentMethod === 'upi'" class="upi-form" (ngSubmit)="processPayment()">
+          <div class="form-group">
+            <label>Enter UPI ID</label>
+            <input type="text" 
+                   [(ngModel)]="paymentDetails.upiId"
+                   name="upiId"
+                   placeholder="yourname@upi"
+                   required>
+          </div>
+          <button type="submit" class="pay-button">
+            <i class="fas fa-lock"></i> Pay ₹{{totalAmount}}
+          </button>
+        </form>
+
+        <!-- Card Form -->
+        <form *ngIf="paymentMethod === 'card'" class="card-form" (ngSubmit)="processPayment()">
+          <div class="form-group">
+            <label>Card Number</label>
+            <input type="text"
+                   [(ngModel)]="paymentDetails.cardNumber"
+                   name="cardNumber"
+                   placeholder="1234 5678 9012 3456"
+                   required>
+          </div>
+          <div class="form-group">
+            <label>Name on Card</label>
+            <input type="text"
+                   [(ngModel)]="paymentDetails.cardName"
+                   name="cardName"
+                   required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Expiry</label>
+              <input type="text"
+                     [(ngModel)]="paymentDetails.expiryDate"
+                     name="expiry"
+                     placeholder="MM/YY"
+                     required>
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="password"
+                     [(ngModel)]="paymentDetails.cvv"
+                     name="cvv"
+                     maxlength="3"
+                     required>
+            </div>
+          </div>
+          <button type="submit" class="pay-button">
+            <i class="fas fa-lock"></i> Pay ₹{{totalAmount}}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

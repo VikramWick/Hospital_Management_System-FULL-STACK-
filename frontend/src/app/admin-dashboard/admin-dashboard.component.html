@@ -1,0 +1,326 @@
+<div class="main-container">
+    <!-- Hero Section -->
+    <header class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </header>
+  
+   
+  
+      <!-- Image-Based Actions Section -->
+      <section class="image-actions">
+        <!-- Doctors -->
+  <div class="action-card">
+  <img src="assets/images/doctors_admin.jpg" alt="Doctors" />
+  <button class="overlay-btn" (click)="toggleMenu('doctor')">👨‍⚕️ Doctors</button>
+  </div>
+  <div *ngIf="activeMenu === 'doctor'" class="submenu">
+  <button (click)="openCreateDoctorForm()">➕ Create Doctor</button>
+  <button (click)="viewDoctors()">👁️ View Doctors</button>
+  </div>
+
+<!-- Patients -->
+<div class="action-card">
+  <img src="assets/images/patients_admin.jpg" alt="Patients" />
+  <button class="overlay-btn" (click)="toggleMenu('patient')">👥 Patients</button>
+</div>
+<div *ngIf="activeMenu === 'patient'" class="submenu">
+  <button (click)="openCreatePatientForm()">➕ Create Patient</button>
+  <button (click)="viewPatients()">👁️ View Patients</button>
+</div>
+
+<!-- Appointments -->
+<div class="action-card">
+  <img src="assets/images/appointment_admin.jpg" alt="Appointments" />
+  <button class="overlay-btn" (click)="toggleMenu('appointment')">📅 Appointments</button>
+</div>
+<div *ngIf="activeMenu === 'appointment'" class="submenu">
+  <button (click)="openCreateAppointmentForm()">➕ Create Appointment</button>
+  <button (click)="viewAppointments()">👁️ View Appointments</button>
+  <button (click)="viewBookingRequests()">🔔 View Requests</button>
+</div>
+
+<!-- Billing -->
+<div class="action-card">
+  <img src="assets/images/biiling_admin.jpg" alt="Billing" />
+  <button class="overlay-btn" (click)="toggleMenu('billing')">💳 Billing</button>
+</div>
+<div *ngIf="activeMenu === 'billing'" class="submenu">
+  <button (click)="openCreateBillForm()">➕ Create Bill</button>
+  <button (click)="viewBills()">📄 View Bills</button>
+</div>
+      </section>
+        <section class="form-section" *ngIf="selectedOption === 'createBill'">
+            <h2>Create Bill</h2>
+            <form (ngSubmit)="createBill()">
+              <div class="input-group">
+                <label for="patientId">Patient ID</label>
+                <input id="patientId" type="number" [(ngModel)]="newBill.patientId" name="patientId" required />
+              </div>
+              <div class="input-group">
+                <label for="doctorId">Doctor ID</label>
+                <input id="doctorId" type="number" [(ngModel)]="newBill.doctorId" name="doctorId" required />
+              </div>
+              <div class="input-group">
+                <label for="appointmentId">Appointment ID</label>
+                <input id="appointmentId" type="text" [(ngModel)]="newBill.appointmentId" name="appointmentId" required />
+              </div>
+              <div class="input-group">
+                <label for="amount">Amount</label>
+                <input id="amount" type="number" [(ngModel)]="newBill.amount" name="amount" required />
+              </div>
+              <div class="input-group">
+                <label for="description">Description</label>
+                <input id="description" type="text" [(ngModel)]="newBill.description" name="description" required />
+              </div>
+              <div class="input-group">
+                <label for="status">Status</label>
+                <select id="status" [(ngModel)]="newBill.status" name="status" required>
+                  <option value="" disabled>Select Status</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Unpaid">Unpaid</option>
+                </select>
+              </div>
+              <button type="submit" class="btn submit">Create Bill</button>
+            </form>
+          </section>
+  
+  <!-- Create Doctor Form -->
+  <section class="form-section" *ngIf="selectedOption === 'createDoctor'">
+    <h2>Create Doctor</h2>
+    <form (ngSubmit)="createDoctor()">
+      <div class="input-group">
+        <label for="doctorUsername">Username</label>
+        <input id="doctorUsername" type="text" [(ngModel)]="newDoctor.username" name="doctorUsername" required />
+      </div>
+
+      <div class="input-group">
+        <label for="doctorPassword">Password</label>
+        <input id="doctorPassword" type="password" [(ngModel)]="newDoctor.password" name="doctorPassword" required />
+      </div>
+
+
+      <div class="input-group">
+        <label for="doctorName">Name</label>
+        <input id="doctorName" type="text" [(ngModel)]="newDoctor.name" name="doctorName" required />
+      </div>
+      <div class="input-group">
+        <label for="doctorSpecialist">Speciality</label>
+        <input id="doctorSpecialist" type="text" [(ngModel)]="newDoctor.specialist" name="doctorSpecialist" required />
+      </div>
+      <div class="input-group">
+        <label for="doctorAge">Age</label>
+        <input id="doctorAge" type="number" [(ngModel)]="newDoctor.age" name="doctorAge" required />
+      </div>
+      <div class="input-group">
+        <label for="doctorGender">Gender</label>
+        <select id="doctorGender" [(ngModel)]="newDoctor.gender" name="doctorGender" required>
+          <option value="" disabled>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <button type="submit" class="btn submit">Create Doctor</button>
+    </form>
+  </section>
+  
+ <!-- Create Patient Form -->
+ <section class="form-section" *ngIf="selectedOption === 'createPatient'">
+    <h2>Create Patient</h2>
+    <form (ngSubmit)="createPatient()">
+      <div class="input-group">
+        <label for="patientUsername">Username</label>
+        <input id="patientUsername" type="text" [(ngModel)]="newPatient.username" name="patientUsername" required />
+      </div>
+
+      <div class="input-group">
+        <label for="patientPassword">Password</label>
+        <input id="patientPassword" type="password" [(ngModel)]="newPatient.password" name="patientPassword" required />
+      </div>
+
+      <div class="input-group">
+        <label for="patientName">Name</label>
+        <input id="patientName" type="text" [(ngModel)]="newPatient.name" name="patientName" required />
+      </div>
+      <div class="input-group">
+        <label for="patientAge">Age</label>
+        <input id="patientAge" type="number" [(ngModel)]="newPatient.age" name="patientAge" required />
+      </div>
+      <div class="input-group">
+        <label for="patientGender">Gender</label>
+        <select id="patientGender" [(ngModel)]="newPatient.gender" name="patientGender" required>
+          <option value="" disabled>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="patientContact">Contact</label>
+        <input id="patientContact" type="text" [(ngModel)]="newPatient.contactNo" name="patientContact" required />
+      </div>
+      <button type="submit" class="btn submit">Create Patient</button>
+    </form>
+  </section>
+
+
+
+  <!-- Create Appointment Form -->
+<section class="form-section" *ngIf="selectedOption === 'createAppointment'">
+  <h2>Create Appointment</h2>
+  <form (ngSubmit)="createAppointment()">
+    <div class="input-group">
+      <label for="patientId">Patient ID</label>
+      <input id="patientId" type="number" [(ngModel)]="newAppointment.patientId" name="patientId" required />
+    </div>
+
+    <div class="input-group">
+      <label for="doctorId">Doctor ID</label>
+      <input id="doctorId" type="number" [(ngModel)]="newAppointment.doctorId" name="doctorId" required />
+    </div>
+
+    <div class="input-group">
+      <label for="appointmentDate">Appointment Date</label>
+      <input id="appointmentDate" type="datetime-local" [(ngModel)]="newAppointment.appointmentDate" name="appointmentDate" required />
+    </div>
+
+    <button type="submit" class="btn submit">Create Appointment</button>
+  </form>
+</section>
+
+<!-- Add this after your existing appointments section -->
+<section class="dynamic-content" *ngIf="selectedOption === 'bookingRequests'">
+  <h2>🔔 Booking Requests</h2>
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search by patient or doctor name..."
+      [(ngModel)]="requestSearchTerm"
+      (input)="filterRequests()"
+    />
+  </div>
+  <div class="card-grid">
+    <div class="data-card request-card" *ngFor="let request of filteredRequests">
+      <p class="request-status">New Request</p>
+      <p><strong>Patient:</strong> {{ request.patient?.name }}</p>
+      <p><strong>Doctor:</strong> {{ request.doctor?.name }}</p>
+      <p><strong>Preferred Date:</strong> {{ request.preferredDate | date: 'medium' }}</p>
+      <p><strong>Notes:</strong> {{ request.notes || 'No additional notes' }}</p>
+      <p><strong>Requested on:</strong> {{ request.createdAt | date: 'medium' }}</p>
+      <div class="action-row">
+        <button class="btn accept" (click)="createAppointmentFromRequest(request)">
+          ✓ Create Appointment
+        </button>
+        <button class="btn delete" (click)="deleteRequest(request.id)">
+          🗑️ Delete Request
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Appointments Info -->
+<section class="dynamic-content" *ngIf="selectedOption === 'appointments'">
+  <h2>📅 Appointments</h2>
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search by Doctor ID or Patient ID..."
+      [(ngModel)]="appointmentSearchTerm"
+      (input)="filterAppointments()"
+    />
+  </div>
+  <div class="card-grid">
+    <div class="data-card" *ngFor="let appointment of filteredAppointments">
+      <p><strong>Appointment ID:</strong> {{ appointment.id }}</p>
+      <p><strong>Patient Name:</strong> {{ appointment.patient?.name || 'N/A' }}</p>
+      <p><strong>Doctor Name:</strong> {{ appointment.doctor?.name || 'N/A' }}</p>
+      <p><strong>Patient ID:</strong> {{ appointment.patient?.id || 'N/A' }}</p>
+      <p><strong>Doctor ID:</strong> {{ appointment.doctor?.id || 'N/A' }}</p>
+      <p><strong>Appointment Date:</strong> {{ appointment.appointmentDate | date: 'medium' }}</p>
+      <p><strong>Status:</strong> {{ appointment.status }}</p>
+      <button class="btn delete" (click)="confirmDeleteAppointment(appointment.id)">🗑️ Delete</button>
+    </div>
+  </div>
+</section>
+  
+    <!-- Doctors Info -->
+<section class="dynamic-content" *ngIf="selectedOption === 'doctors'">
+  <h2>👨‍⚕️ Doctors</h2>
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search by name or specialty..."
+      [(ngModel)]="doctorSearchTerm"
+      (input)="filterDoctors()"
+    />
+  </div>
+  <div class="card-grid">
+    <div class="data-card" *ngFor="let doctor of filteredDoctors">
+      <p><strong>Username:</strong> {{ doctor.username }}</p>
+      <p><strong>Name:</strong> {{ doctor.name }}</p>
+      <p><strong>Speciality:</strong> {{ doctor.specialist }}</p>
+      <p><strong>Age:</strong> {{ doctor.age }}</p>
+      <p><strong>Gender:</strong> {{ doctor.gender }}</p>
+      <div class="action-row">
+        <!--<button class="btn edit" (click)="openEditDoctorForm(doctor)">✏️ Edit</button>-->
+        <button class="btn delete" (click)="confirmDeleteDoctor(doctor.id)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Patients Info -->
+<section class="dynamic-content" *ngIf="selectedOption === 'patients'">
+  <h2>👥 Patients</h2>
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search by name or username..."
+      [(ngModel)]="patientSearchTerm"
+      (input)="filterPatients()"
+    />
+  </div>
+  <div class="card-grid">
+    <div class="data-card" *ngFor="let patient of filteredPatients">
+      <p><strong>Username:</strong> {{ patient.username }}</p>
+      <p><strong>Name:</strong> {{ patient.name }}</p>
+      <p><strong>Age:</strong> {{ patient.age }}</p>
+      <p><strong>Gender:</strong> {{ patient.gender }}</p>
+      <p><strong>Contact:</strong> {{ patient.contactNo }}</p>
+      <p><strong>Address:</strong> {{ patient.address }}</p>
+      <div class="action-row">
+        <button class="btn delete" (click)="confirmDeletePatient(patient.id)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+    
+
+
+
+      <!-- Billing Info -->
+<section class="dynamic-content" *ngIf="selectedOption === 'bills'">
+  <h2>📄 Bills</h2>
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search by Patient Name or Appointment ID..."
+      [(ngModel)]="billSearchTerm"
+      (input)="filterBills()"
+    />
+  </div>
+  <div class="card-grid">
+    <div class="data-card" *ngFor="let bill of filteredBills">
+      <p><strong>Patient:</strong> {{ bill.patient.name }}</p>
+      <p><strong>Doctor:</strong> {{ bill.doctor.name }}</p>
+      <p><strong>Appointment ID:</strong> {{ bill.appointment.id }}</p>
+      <p><strong>Amount:</strong> {{ bill.amount }}</p>
+      <p><strong>Description:</strong> {{ bill.description }}</p>
+      <p><strong>Status:</strong> {{ bill.status }}</p>
+      <p><strong>Billing Date:</strong> {{ bill.billingDate | date: 'medium' }}</p>
+      <button class="btn delete" (click)="confirmDeleteBill(bill.id)">🗑️ Delete</button>
+    </div>
+  </div>
+</section>
+  </div>

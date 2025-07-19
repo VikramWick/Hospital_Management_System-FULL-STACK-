@@ -1,0 +1,38 @@
+<div class="dashboard-background">
+  <div class="dashboard-overlay">
+    <div class="login-box">
+      <h2>Medora Health</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input id="username" type="text" formControlName="username" placeholder="Enter your username" />
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
+        </div>
+
+        <div class="input-group">
+          <label for="role">Role</label>
+          <select id="role" formControlName="role">
+            <option value="" disabled>Select Role</option>
+            <option value="Admin">Admin</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Patient">Patient</option>
+          </select>
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+      </form>
+
+      
+
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+.dashboard-background {
+  height: 100vh;
+  width: 100%;
+  background: url('/assets/images/hospital-bg.jpg') no-repeat center center/cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(5px); /* Blurring effect */
+  background-color: rgba(0, 0, 0, 0.4); /* Dark transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px; /* Ensure the login box has a fixed width */
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Increase spacing between input fields and button */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #6a11cb;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Add spacing between label and input */
+}
+
+input, select {
+  width: 100%; /* Ensure inputs take the full width of the login box */
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+input:focus, select:focus {
+  border-color: #6a11cb;
+  box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+  outline: none;
+}
+
+button {
+  width: 100%; /* Ensure the button takes the full width of the login box */
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  background-color: #6a11cb;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 10px; /* Add margin to separate the button from the role dropdown */
+}
+
+button:hover {
+  background-color: #2575fc;
+  transform: scale(1.05);
+}
+
+button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+}

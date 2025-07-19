@@ -1,0 +1,211 @@
+<div class="dashboard">
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="header-left">
+        <div class="welcome-box">
+          <h2>Hello, {{ doctor.name }}</h2>
+          <p>Manage appointments, patients, and pharmacy seamlessly.</p>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/doctordb.png" alt="Doctor Hero"/>
+    </div>
+    <div class="header-buttons">
+      <button class="change-pwd-btn" (click)="openPasswordModal()">
+        <i class="fas fa-key"></i> Change Password
+      </button>
+      <button class="logout-btn" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </header>
+    
+        
+    
+
+  <!-- Hero Greeting -->
+  <!--<section class="hero-section">
+    <div class="welcome-box">
+      <h2>Hello, {{ doctor.name }}</h2>
+      <p>Manage appointments, patients, and pharmacy seamlessly.</p>
+    </div>
+  </section>-->
+
+  <!-- Info Cards -->
+  <section class="info-cards">
+    <div class="info-card">
+      <img src="assets/images/doctorimage1.jpg" alt="Doctor" />
+      <div>
+        <p><strong>Speciality:</strong> {{ doctor.specialist }}</p>
+        <p><strong>Age:</strong> {{ doctor.age }}</p>
+        <p><strong>Gender:</strong> {{ doctor.gender }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Action Buttons -->
+  <section class="action-buttons">
+    <button (click)="fetchAppointments()">📅 Appointments</button>
+    <button (click)="viewPatients()">👥 Patients</button>
+    <button (click)="fetchPharmacyDetails()">💊 Pharmacy</button>
+  </section>
+
+  <!-- Dynamic Content -->
+  <section class="dynamic-content">
+    <ng-container *ngIf="selectedOption === 'appointments'">
+      <h3>📅 Appointments</h3>
+      <div class="appointment-grid">
+        <div class="data-card" *ngFor="let a of appointments">
+          <p><strong>Appointment ID:</strong> {{ a.id }}</p>
+          <p><strong>Date:</strong> {{ a.appointmentDate }}</p>
+          <p><strong>Status:</strong> {{ a.status }}</p>
+          <!-- <p><strong>Patient Id:</strong>{{a.patientId}}</p> -->
+          <p><strong>Patient:</strong> {{ a.patientName }}</p>
+          <p><strong>Age/Gender:</strong> {{ a.patientAge }} / {{ a.patientGender }}</p>
+          <p><strong>Contact:</strong> {{ a.patientContactNo }}</p>
+          <div class="action-row">
+            <button class="accept" [disabled]="a.status !== 'Scheduled'" (click)="acceptAppointment(a.id)">
+              ✔ Accept
+            </button>
+            <button class="decline" [disabled]="a.status !== 'Scheduled'" (click)="declineAppointment(a.id)">
+              ✖ Decline
+            </button>
+            <button class="prescribe" [disabled]="a.status !== 'Accepted'" (click)="openPrescriptionModal(a)">
+              📝 Write Prescription
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </section>
+
+  <section class="dynamic-content" *ngIf="selectedOption === 'patients'">
+    <h2>👥 My Patients</h2>
+    <div *ngIf="patients.length > 0; else noPatients" class="card-grid">
+      <div class="data-card hover-card" *ngFor="let patient of patients">
+        <p><strong>Name:</strong> {{ patient.name }}</p>
+        <p><strong>Age:</strong> {{ patient.age }}</p>
+        <p><strong>Gender:</strong> {{ patient.gender }}</p>
+        <p><strong>Contact:</strong> {{ patient.contactNo }}</p>
+        <p><strong>Address:</strong> {{ patient.address }}</p>
+        <p><strong>Last Visit:</strong> {{ patient.dateOfVisit | date }}</p>
+      </div>
+    </div>
+    <ng-template #noPatients>
+      <div class="no-data">
+        <p>No patients found</p>
+      </div>
+    </ng-template>
+  </section>
+
+  <ng-container *ngIf="selectedOption === 'pharmacy'">
+    <h3>💊 Pharmacy</h3>
+    <div class="pharmacy-container">
+      <div class="card-grid">
+        <div class="data-card" *ngFor="let m of pharmacyDetails">
+          <p><strong>Name:</strong> {{ m.name }}</p>
+          <p><strong>Price:</strong> ₹{{ m.price }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Add Prescription Modal -->
+<div class="prescription-modal" *ngIf="showPrescriptionModal">
+  <div class="modal-content">
+    <h2>Write Prescription</h2>
+    <div class="patient-info">
+      <p><strong>Patient:</strong> {{selectedAppointment?.patientName}}</p>
+      <p><strong>Age/Gender:</strong> {{selectedAppointment?.patientAge}} / {{selectedAppointment?.patientGender}}</p>
+      <p><strong>Appointment ID:</strong> {{selectedAppointment?.id}}</p>
+    </div>
+    <form (ngSubmit)="savePrescription()">
+      <div class="form-group">
+        <label>Diagnosis:</label>
+        <textarea [(ngModel)]="prescription.diagnosis" name="diagnosis" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Medicines:</label>
+        <textarea [(ngModel)]="prescription.medicines" name="medicines" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Dosage Instructions:</label>
+        <textarea [(ngModel)]="prescription.instructions" name="instructions" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Additional Notes:</label>
+        <textarea [(ngModel)]="prescription.notes" name="notes"></textarea>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="save">Save & Generate PDF</button>
+        <button type="button" class="cancel" (click)="closePrescriptionModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="password-modal" [class.show]="showPasswordModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2><i class="fas fa-key"></i> Change Password</h2>
+      <button class="close-btn" (click)="closePasswordModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="oldPassword">Current Password</label>
+        <div class="password-input-container">
+          <input 
+            [type]="showOldPassword ? 'text' : 'password'"
+            id="oldPassword" 
+            [(ngModel)]="passwordData.oldPassword"
+            placeholder="Enter current password"
+          >
+          <i 
+            [class]="showOldPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+            (click)="showOldPassword = !showOldPassword"
+          ></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <div class="password-input-container">
+          <input 
+            [type]="showNewPassword ? 'text' : 'password'"
+            id="newPassword" 
+            [(ngModel)]="passwordData.newPassword"
+            placeholder="Enter new password"
+          >
+          <i 
+            [class]="showNewPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+            (click)="showNewPassword = !showNewPassword"
+          ></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm New Password</label>
+        <div class="password-input-container">
+          <input 
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            id="confirmPassword" 
+            [(ngModel)]="passwordData.confirmPassword"
+            placeholder="Confirm new password"
+          >
+          <i 
+            [class]="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"
+            (click)="showConfirmPassword = !showConfirmPassword"
+          ></i>
+        </div>
+      </div>
+
+
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="button-container">
+        <button class="cancel-btn" (click)="closePasswordModal()">Cancel</button>
+        <button class="submit-btn" (click)="changePassword()">Change Password</button>
+      </div>
+    </div>
+  </div>
+</div>
