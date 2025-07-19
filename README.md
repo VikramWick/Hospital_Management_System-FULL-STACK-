@@ -92,6 +92,7 @@ To get a local copy up and running, follow these simple steps.
 
 <img width="1442" height="771" alt="Screenshot 2025-05-21 at 2 41 26 PM" src="https://github.com/user-attachments/assets/66937e4f-7d91-4ea5-805d-4586369be484" />
 
+
 <img width="1450" height="787" alt="Screenshot 2025-05-23 at 9 46 07 AM" src="https://github.com/user-attachments/assets/d7af87f7-c6c4-42d2-b86b-a4836a5e8dd1" />
 
 <img width="1450" height="704" alt="Screenshot 2025-05-23 at 9 46 27 AM" src="https://github.com/user-attachments/assets/ec969a9b-c68c-4f86-af87-e13e31ce99a4" />
