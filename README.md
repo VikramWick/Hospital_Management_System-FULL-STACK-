@@ -91,19 +91,33 @@ To get a local copy up and running, follow these simple steps.
 ## User Interface
 
 <img width="1442" height="771" alt="Screenshot 2025-05-21 at 2 41 26 PM" src="https://github.com/user-attachments/assets/66937e4f-7d91-4ea5-805d-4586369be484" />
+
 <img width="1450" height="787" alt="Screenshot 2025-05-23 at 9 46 07 AM" src="https://github.com/user-attachments/assets/d7af87f7-c6c4-42d2-b86b-a4836a5e8dd1" />
+
 <img width="1450" height="704" alt="Screenshot 2025-05-23 at 9 46 27 AM" src="https://github.com/user-attachments/assets/ec969a9b-c68c-4f86-af87-e13e31ce99a4" />
+
 <img width="1450" height="704" alt="Screenshot 2025-05-23 at 9 46 40 AM" src="https://github.com/user-attachments/assets/25a4094b-3a43-45c3-8489-b4a5228dd740" />
+
 <img width="1450" height="438" alt="Screenshot 2025-05-23 at 9 47 13 AM" src="https://github.com/user-attachments/assets/51fcd24b-fdb2-42e4-825e-eb8210445202" />
+
 <img width="1450" height="338" alt="Screenshot 2025-05-23 at 9 47 00 AM" src="https://github.com/user-attachments/assets/c38ab383-17b9-4b16-927c-5af3843187e2" />
+
 <img width="1450" height="797" alt="Screenshot 2025-05-21 at 2 38 47 PM" src="https://github.com/user-attachments/assets/16645e51-4265-47cc-90c6-169511b0ebdb" />
+
 <img width="1140" height="682" alt="Screenshot 2025-05-21 at 2 39 43 PM" src="https://github.com/user-attachments/assets/e1a0c66c-6c62-4dad-a09d-97f818d3dd3b" />
+
 <img width="1442" height="771" alt="Screenshot 2025-05-21 at 2 40 19 PM" src="https://github.com/user-attachments/assets/d9916ad2-62d4-42c4-99ea-2771e4cd20fa" />
+
 <img width="1442" height="771" alt="Screenshot 2025-05-21 at 2 40 51 PM" src="https://github.com/user-attachments/assets/d4f927cf-a9ab-45de-b905-77bcb18b2012" />
+
 <img width="1401" height="670" alt="Screenshot 2025-05-22 at 12 20 23 PM" src="https://github.com/user-attachments/assets/b8d00bb2-a457-4df3-b509-6ad5f6609a00" />
+
 <img width="1399" height="720" alt="Screenshot 2025-05-22 at 12 26 48 PM" src="https://github.com/user-attachments/assets/e0bee192-43e4-4acd-9c02-d5e2f99f5420" />
+
 <img width="1399" height="399" alt="Screenshot 2025-05-22 at 12 27 39 PM" src="https://github.com/user-attachments/assets/6118deed-035e-407d-a479-178a55b929b1" />
+
 <img width="1399" height="399" alt="Screenshot 2025-05-22 at 12 27 55 PM" src="https://github.com/user-attachments/assets/c22ef9f8-d141-4fc9-b783-ece628f97586" />
+
 <img width="1042" height="752" alt="Screenshot 2025-05-22 at 12 33 48 PM" src="https://github.com/user-attachments/assets/1765733d-467d-48e3-a29a-03b41c28f545" />
 
 
